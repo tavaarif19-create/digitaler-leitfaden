@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digitaler Leitfaden – Schlaflabor</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef3f8;
+      color: #222;
+    }
+    
+    header {
+      background: linear-gradient(135deg, #0f56a6, #2f889d);
+      color: white;
+      padding: 30px 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    
+    header h1 {
+      color: white;
+      font-size: 2.1rem;
+    }
+    
+    .container {
+      padding: 18px 20px 30px;
+    }
+    
+    #search {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      border: 1px solid #d9e2ec;
+      border-radius: 10px;
+      font-size: 15px;
+      background: white;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+    }
+    
+    nav.main-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      background: #0f56a6;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+    }
+    
+    .main-nav button {
+      width: 100%;
+      border: none;
+      background: rgba(255,255,255,0.92);
+      color: #123;
+      padding: 16px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    
+    .main-nav button:hover,
+    .main-nav button.active {
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    
+    section.module {
+      display: none;
+      background: #fff;
+      border-radius: 8px;
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+
+    section.module.active {
+      display: block;
+    }
+
+    section.module h2 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    .intro-text {
+      margin-bottom: 16px;
+      color: #444;
+    }
+
+    .subnav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 18px;
+    }
+    
+    .subnav-item {
+      border: none;
+      background: #edf2f7;
+      padding: 10px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .subnav-item:hover,
+    .subnav-item.active {
+      background: #0f56a6;
+      color: white;
+    }
+    
+    .subpanel {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .subpanel.active {
+      display: block;
+    }
+
+    .nested-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 16px;
+    }
+
+    .nested-tab {
+      border: 1px solid #cfd8e3;
+      background: #f7f7f7;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .nested-tab:hover,
+    .nested-tab.active {
+      background: #eef6ff;
+      border-color: #3b82f6;
+      font-weight: 600;
+    }
+
+    .nested-panel {
+      display: none;
+      margin-top: 8px;
+    }
+
+    .nested-panel.active {
+      display: block;
+    }
+
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .checklist li {
+      margin-bottom: 8px;
+    }
+
+    .checklist input[type="checkbox"] {
+      margin-right: 8px;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .image-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    
+    
+    .image-row img,
+    .content-image {
+      max-width: 100%;
+      width: auto;
+      max-height: 300px;
+      height: auto;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    
+    .img-medium { max-width: 50%; height: auto; }
+    .img-large  { max-width: 70%; height: auto; }
+    .image-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    
+    .image-gallery img {
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    
+    .hint-box {
+      background: #fff8e1;
+      border-left: 4px solid #f59e0b;
+      padding: 10px 12px;
+      margin: 12px 0;
+      border-radius: 4px;
+    }
+    
+    .panel-intro {
+      color: #555;
+      margin-bottom: 12px;
+    }
+    
+    .criteria-list li { margin-bottom: 6px; }
+    .wizard-progress {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    
+    .envelope-list {
+      margin: 8px 0;
+      padding-left: 22px;
+    }
+
+    .search-hidden {
+      display: none !important;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .dashboard-card {
+      background: white;
+      border: 1px solid #d9e2ec;
+      border-radius: 10px;
+      padding: 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: all 0.2s ease;
+    }
+
+    .dashboard-card:hover {
+      transform: translateY(-2px);
+      border-color: #0f56a6;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    .dashboard-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #0f56a6;
+    }
+
+    .datenschutz-box {
+      background: #fff8e1;
+      border-left: 5px solid #f59e0b;
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+
+    .success-box {
+      background: #ecfdf5;
+      border-left: 5px solid #10b981;
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+
+    .faq-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      background: white;
+    }
+
+    .faq-table th,
+    .faq-table td {
+      border: 1px solid #d9e2ec;
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .faq-table th {
+      background: #edf2f7;
+    }
+
+    .checklist-group {
+      background: #f8fafc;
+      border: 1px solid #d9e2ec;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .checklist-group h4 {
+      margin-top: 0;
+      color: #0f56a6;
+    }
+
+    .video-placeholder {
+      border: 2px dashed #cbd5e1;
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      color: #64748b;
+      min-height: 110px;
+    }
+
+  
+
+    /* Farblegende Terminliste */
+    .terminliste-box {
+      background: #ffffff;
+      border: 1px solid #d9e2ec;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .terminliste-box h4 {
+      margin-top: 0;
+      color: #0f3568;
+    }
+
+    .farblegende {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 14px 0 18px;
+    }
+
+    .farbe-card {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border: 1px solid #d9e2ec;
+      border-radius: 10px;
+      padding: 12px;
+      background: #f8fafc;
+    }
+
+    .farbe-card.rosa { background: #fff1f5; border-color: #f9a8c4; }
+    .farbe-card.grau { background: #f3f4f6; border-color: #c4c8cf; }
+    .farbe-card.orange { background: #fff7ed; border-color: #fdba74; }
+    .farbe-card.gruen { background: #ecfdf5; border-color: #269950; }
+    .farbe-card.weiss { background: #ffffff; border-color: #cbd5e1; }
+
+    .farbe-box {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      border: 1px solid rgba(0,0,0,0.25);
+      flex: 0 0 20px;
+      margin-top: 2px;
+    }
+
+    .farbe-box.rosa { background: #ff6fa3; }
+    .farbe-box.grau { background: #9ca3af; }
+    .farbe-box.orange { background: #fb923c; }
+    .farbe-box.gruen { background: #22c55e; }
+    .farbe-box.weiss { background: #ffffff; }
+
+    .farbe-card strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #102a43;
+    }
+
+    .farbe-card span {
+      display: block;
+      font-size: 13px;
+      color: #334155;
+    }
+
+    .terminliste-table-wrap {
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    .terminliste-table {
+      width: 100%;
+      min-width: 780px;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: white;
+      border: 1px solid #cfd8e3;
+    }
+
+    .terminliste-table th,
+    .terminliste-table td {
+      border: 1px solid #cfd8e3;
+      padding: 9px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .terminliste-table th {
+      background: #e9f1fb;
+      color: #0f3568;
+      font-weight: 700;
+    }
+
+    .markierung {
+      width: 22px;
+      text-align: center;
+    }
+
+    .markierung span {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.25);
+    }
+
+    .markierung .m-rosa { background: #ff6fa3; }
+    .markierung .m-grau { background: #9ca3af; }
+    .markierung .m-orange { background: #fb923c; }
+    .markierung .gruen { background: #22c55e; }
+    .markierung .m-weiss { background: #ffffff; }
+
+    .row-rosa { background: #fff5f8; }
+    .row-grau { background: #f7f7f8; }
+    .row-orange { background: #fff7ed; }
+    .row-gruen { background: #f0fdf4; }
+
+    .termin-hinweis {
+      background: #eef6ff;
+      border-left: 4px solid #0f56a6;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 12px;
+      color: #17324d;
+    }
+
+    @media (max-width: 900px) {
+      .farblegende { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      .farblegende { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Digitaler Leitfaden für administrative Workflows im Schlaflabor</h1>
+  </header>
+
+  <div class="container">
+    <input type="text" id="search" placeholder="Suchbegriff suchen..." />
+
+    <nav class="main-nav">
+      <button class="main-nav-btn active" data-module="ambulanzbetrieb">Ambulanzbetrieb</button>
+      <button class="main-nav-btn" data-module="patientenverwaltung">Patientenverwaltung</button>
+      <button class="main-nav-btn" data-module="buero-material">Büro &amp; Material</button>
+      <button class="main-nav-btn" data-module="checklisten-faq">Checklisten &amp; FAQ</button>
+      <button class="main-nav-btn" data-module="notfall-kontakt">Notfall &amp; Kontakt</button>
+    </nav>
+
+    <!-- AMBULANZBETRIEB -->
+    <section id="ambulanzbetrieb" class="module active">
+      <h2>Ambulanzbetrieb</h2>
+      <p class="intro-text">
+        Dieser Bereich umfasst wiederkehrende Abläufe rund um die Ambulanz, von der Vorbereitung bis zur Nachbereitung.
+      </p>
+
+      <div class="subnav">
+        <button class="subnav-item active" data-target="amb-vorbereitung">Vorbereitung der Ambulanz</button>
+        <button class="subnav-item" data-target="amb-wochenstart">Wochenstart</button>
+      </div>
+
+      <!-- Vorbereitung der Ambulanz -->
+      <div id="amb-vorbereitung" class="subpanel active">
+        <h3>Vorbereitung der Ambulanz</h3>
+        <p>Wählen Sie, ob es sich um Kontrollpatienten oder neue Patienten handelt:</p>
+
+
+        <div class="nested-tabs">
+          <button class="nested-tab active" data-target="amb-kontrolle">Kontrollpatienten</button>
+          <button class="nested-tab" data-target="amb-neu">Neue Patienten</button>
+        </div>
+
+        <div id="amb-kontrolle" class="nested-panel active">
+          <h4>Vorbereitung für Kontrollpatienten</h4>
+          <ol>
+            <li>Holen Sie die entsprechenden Akten im Schlaflabor (Raum +2/31190).</li>
+            <li>Tragen Sie den aktuellen BMI in das Formular ein (Größe und Gewicht prüfen).</li>
+            <li>Füllen Sie den Epworth-Score (ESS) aus bzw. übernehmen Sie die Werte.</li>
+            <li>
+              Tragen Sie den AHI-Wert aus dem aktuellen Befund ein.
+            </li>
+          </ol>
+        </div>
+
+        <div id="amb-neu" class="nested-panel">
+          <h4>Vorbereitung für neue Patient:innen</h4>
+          <ol>
+            <li>Bereiten Sie drei Blätter für neue Patienten vor.</li>
+            <li>Legen Sie zusätzlich eine Folie bzw. Klarsichthülle bereit.</li>
+            <li>Ordnen Sie die Blätter in der richtigen Reihenfolge.</li>
+            <li>Legen Sie das Set zusammen mit der Patientenakte für die Sprechstunde bereit.</li>
+          </ol>
+
+          <div class="image-row">
+            <img src="bild/avnp1.png" alt="Vorbereitung neue Patient:innen 1" />
+            <img src="bild/avnp2.png" alt="Vorbereitung neue Patient:innen 2" />
+            <img src="bild/avnp3.png" alt="Vorbereitung neue Patient:innen 3" />
+            <img src="bild/avnp4.png" alt="Vorbereitung neue Patient:innen 5" />
+          </div>
+        </div>
+
+        <div class="terminliste-box">
+          <h4>Farblegende der Terminliste</h4>
+          <p class="panel-intro">
+            Die Farben auf der Tages- bzw. Vortagesliste helfen dabei, den Ablauf der Patient:innen schnell zu erkennen.
+            Die folgende Darstellung ist anonymisiert und dient nur als Beispiel.
+          </p>
+
+          <div class="farblegende">
+            <div class="farbe-card rosa">
+              <span class="farbe-box rosa"></span>
+              <div>
+                <strong>Rosa</strong>
+                <span>Neupatient:in / erster Termin. Erst Kabine 25, anschließend Schlaflabor +2.</span>
+              </div>
+            </div>
+
+            <div class="farbe-card grau">
+              <span class="farbe-box grau"></span>
+              <div>
+                <strong>Grau</strong>
+                <span>Kein Neupatient / Kontrolltermin. Direkt ins Schlaflabor +2.</span>
+              </div>
+            </div>
+
+            <div class="farbe-card orange">
+              <span class="farbe-box orange"></span>
+              <div>
+                <strong>Orange</strong>
+                <span>Gesprächstermin, z. B. PG-Befundgespräch / Beratung.</span>
+              </div>
+            </div>
+
+            <div class="farbe-card gruen">
+              <span class="farbe-box gruen"></span>
+              <div>
+                <strong>Grün</strong>
+                <span>Gespräch mit Psychologen bzw. Beratung im Schlaflabor +2</span>
+              </div>
+            </div>
+
+            <div class="farbe-card weiss">
+              <span class="farbe-box weiss"></span>
+              <div>
+                <strong>Weiß / ohne Farbe</strong>
+                <span>Zusatzinformation oder handschriftliche Notiz prüfen.</span>
+              </div>
+            </div>
+          </div>
+
+          <h4>Beispiel einer anonymisierten Terminliste</h4>
+          <div class="terminliste-table-wrap">
+            <table class="terminliste-table">
+              <thead>
+                <tr>
+                  <th>Farbe</th>
+                  <th>Zeit</th>
+                  <th>Patient/Beschreibung</th>
+                  <th>Termin / Ort</th>
+                  <th>Bedeutung für den Ablauf</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="row-rosa">
+                  <td class="markierung"><span class="m-rosa"></span></td>
+                  <td>10:23</td>
+                  <td>Patient:in A – NEU MP4</td>
+                  <td>Kabine 25 → Schlaflabor +2</td>
+                  <td>Neupatient:in: zuerst Sprechstunde, danach Gerät abholen.</td>
+                </tr>
+                <tr class="row-rosa">
+                  <td class="markierung"><span class="m-rosa"></span></td>
+                  <td>10:24</td>
+                  <td>Patient:in B – NEU MP4, MIS und Befunde in Kabine 25</td>
+                  <td>Kabine 25 → Schlaflabor +2</td>
+                  <td>Neue Unterlagen und Befunde für Kabine 25 bereitlegen.</td>
+                </tr>
+                <tr class="row-grau">
+                  <td class="markierung"><span class="m-grau"></span></td>
+                  <td>10:23</td>
+                  <td>Patient:in C – direkt Schlaflabor +2</td>
+                  <td>Schlaflabor +2</td>
+                  <td>Kontrollpatient:in, keine Vorbesprechung in Kabine 25.</td>
+                </tr>
+                <tr class="row-grau">
+                  <td class="markierung"><span class="m-grau"></span></td>
+                  <td>10:24</td>
+                  <td>Patient:in D – direkt Schlaflabor +2</td>
+                  <td>Schlaflabor +2</td>
+                  <td>Gerät abholen oder zurückbringen.</td>
+                </tr>
+                <tr class="row-orange">
+                  <td class="markierung"><span class="m-orange"></span></td>
+                  <td>11:13</td>
+                  <td>Patient:in E – PG-Gespräch</td>
+                  <td>9:30 Uhr PG-Gespräch</td>
+                  <td>Sonderfall: Hinweis beachten und ggf. Rücksprache halten.</td>
+                </tr>
+                <tr class="row-gruen">
+                  <td class="markierung"><span class="m-gruen"></span></td>
+                  <td>11:30</td>
+                  <td>Patient:in F – PG-Gespräch</td>
+                  <td>10:00 Uhr PG-Gespräch</td>
+                  <td>Sonderfall: Hinweis beachten und ggf. Rücksprache halten.</td>
+                </tr>
+                <tr>
+                  <td class="markierung"><span class="m-weiss"></span></td>
+                  <td>—</td>
+                  <td>Handschriftliche Ergänzung</td>
+                  <td>z. B. Reihenfolge / Telefonnummer / Bemerkung</td>
+                  <td>Notiz prüfen und bei Unklarheit nachfragen.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="termin-hinweis">
+            <strong>Hinweis:</strong> Die Terminliste wird täglich aktualisiert. Prüfen Sie die Liste zu Beginn der Sprechstunde und nach kurzfristigen Änderungen erneut.
+          </div>
+        </div>
+      </div>
+
+ 
+      <!-- Wochenstart -->
+      <div id="amb-wochenstart" class="subpanel">
+        <h3>Wochenstart</h3>
+        <p>Führen Sie diese Schritte jeweils zu Beginn der Woche durch:</p>
+
+        <ul class="checklist">
+          <li><label><input type="checkbox" /> Akten beim Büro (+2/31260) holen </label></li>
+          <li><label><input type="checkbox" /> Akten beim Büro (+2/21530) holen</label></li>
+          <li><label><input type="checkbox" /> Akten sortieren</label></li>
+          <li><label><input type="checkbox" /> Akten zum Archiv bringen</label></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PATIENTENVERWALTUNG -->
+    <section id="patientenverwaltung" class="module">
+        <h2>Patientenverwaltung</h2>
+        <p class="intro-text">
+            Dieser Bereich enthält Anleitungen zur Patientendatenverwaltung in Orbis und MS Access
+            sowie zur Terminvergabe für verschiedene Untersuchungs- und Kontrollformen.
+        </p>
+        
+        <div class="subnav">
+            <button class="subnav-item active" data-target="pv-daten">Patientendatenverwaltung</button>
+            <button class="subnav-item" data-target="pv-termine">Terminvergabe</button>
+          </div>
+        
+        
+    <!-- PATIENTENDATENVERWALTUNG -->
+    <div id="pv-daten" class="subpanel active">
+      <h3>Patientendatenverwaltung</h3>
+
+<h4>Anmeldung bei ORBIS</h4>
+<p class="panel-intro">
+  In diesem Abschnitt wird beschrieben, wie der Einstieg in ORBIS erfolgt und welcher Bereich
+  für die administrativen Abläufe im Schlaflabor ausgewählt wird.
+</p>
+
+<ol>
+  <li>Öffnen Sie zunächst ORBIS auf dem Arbeitsplatzrechner.</li>
+  <li>Melden Sie sich mit den persönlichen Zugangsdaten an.</li>
+  <li>Wählen Sie im Menü den Bereich <strong>Pneumologie Ambulanz</strong> aus.</li>
+  <li>Prüfen Sie, ob der richtige Arbeitsbereich geöffnet wurde.</li>
+</ol>
+
+<div class="image-row">
+  <img src="bild/dedalusorbis.png" alt="Anmeldung bei ORBIS und Auswahl Pneumologie Ambulanz" class="img-medium">
+</div>
+</div>
+
+
+    <!-- TERMINVERGABE -->
+    <div id="pv-termine" class="subpanel">
+        <h3>Terminvergabe</h3>
+        
+        <div class="nested-tabs">
+            <button class="nested-tab active" data-target="term-neu">Neue Patienten ambulant</button>
+            <button class="nested-tab" data-target="term-cpap">CPAP-Kontrolle</button>
+            <button class="nested-tab" data-target="term-bestaetigung">Terminbestätigung</button>
+        </div>
+        
+    <!-- Neue Patienten ambulant -->
+    <div id="term-neu" class="nested-panel active">
+        <h4>Terminvergabe für neue Patienten ambulant und CPAP-Kontrolle</h4>
+
+        <p class="panel-intro">
+            In diesem Abschnitt wird die Terminvergabe für neue ambulante Patienten sowie für CPAP-Kontrollen beschrieben.
+        </p>
+        
+        <ol>
+            <li>Öffnen Sie den Terminkalender in MS Access bzw. im entsprechenden System.</li>
+            <li>Prüfen Sie verfügbare Termine gemäß Vorgabe.</li>
+            <li>Tragen Sie den Termin ein und ergänzen Sie relevante Hinweise.</li>
+            <li>Kontrollieren Sie die Eingabe abschließend.</li>
+        </ol>
+        
+        <div class="image-gallery">
+          <img src="bild/term-neu.png" alt="Terminvergabe neue Patienten Schritt " style="max-width: 50%; height: auto;">
+          <img src="bild/term-neu-1.png" alt="Terminvergabe neue Patienten Schritt 1" style="max-width: 50%; height: auto;">
+          <img src="bild/term-neu-2.png" alt="Terminvergabe neue Patienten Schritt 2" style="max-width: 50%; height: auto;">
+        </div>
+    </div>
+
+
+<!-- CPAP-Kontrolle -->
+<div id="term-cpap" class="nested-panel">
+    <h4>Terminvergabe für CPAP-Kontrollen</h4>
+
+   <p class="panel-intro">
+    In diesem Abschnitt wird die Terminvergabe für CPAP-Kontrollen mithilfe von MS Access und ORBIS beschrieben.
+</p>
+
+<ol>
+    <li>Öffnen Sie zunächst MS Access.</li>
+    <li>Erfassen bzw. kontrollieren Sie die relevanten Patientendaten.</li>
+    <li>Wechseln Sie anschließend zu ORBIS.</li>
+    <li>Öffnen Sie den entsprechenden Terminbereich für CPAP-Kontrollen.</li>
+    <li>Prüfen Sie verfügbare freie Termine.</li>
+    <li>Tragen Sie den ausgewählten Termin im System ein.</li>
+    <li>Kontrollieren Sie die Eingabe abschließend.</li>
+</ol>
+
+    <div class="image-gallery">
+        <img src="bild/term-cpap-1.png" alt="CPAP-Kontrolle Schritt 1" style="max-width: 50%; height: auto;">
+        <img src="bild/term-cpap-2.png" alt="CPAP-Kontrolle Schritt 2" style="max-width: 50%; height: auto;">
+        <img src="bild/term-cpap-3.png" alt="CPAP-Kontrolle Schritt 3" style="max-width: 50%; height: auto;">
+        <img src="bild/term-cpap-4.png" alt="CPAP-Kontrolle Schritt 4" style="max-width: 50%; height: auto;">
+        <img src="bild/term-cpap-5.png" alt="CPAP-Kontrolle Schritt 5" style="max-width: 50%; height: auto;">
+        <img src="bild/term-cpap-6.png" alt="CPAP-Kontrolle Schritt 6" style="max-width: 50%; height: auto;">
+        <img src="bild/term-cpap-7.png" alt="CPAP-Kontrolle Schritt 7" style="max-width: 50%; height: auto;">
+    </div>
+  </div>
+
+
+<!--Terminbestätigung -->
+<div id="term-bestaetigung" class="nested-panel">
+    <h4>Terminbestätigung</h4>
+    
+    <p class="panel-intro">
+    In diesem Abschnitt wird die Terminbestätigung beschrieben.
+</p>
+
+<ol>
+    <li>Öffnen Sie zunächst MS Access.</li>
+    <li>Suchen Sie die betreffende Patientin bzw. den betreffenden Patienten mithilfe der PID oder des Geburtsdatums.</li>
+    <li>Prüfen Sie die hinterlegten Termindaten.</li>
+    <li>Bestätigen Sie den entsprechenden Termin im System.</li>
+    <li>Kontrollieren Sie abschließend die aktualisierten Informationen.</li>
+</ol>
+    
+    <div class="image-gallery">
+      <img src="bild/term-bestaetigung-1.png" alt="Terminbestätigung Schritt 1" style="max-width: 50%; height: auto;">
+      <img src="bild/term-bestaetigung-2.png" alt="Terminbestätigung Schritt 2" style="max-width: 50%; height: auto;">
+    </div>
+
+    <div class="hint-box">
+      <strong>Hinweis:</strong> Hier können Hinweise zu Versand, Ausdruck oder telefonischer Rückmeldung ergänzt werden.
+    </div>
+  </div>
+</section>
+
+    <!-- BÜRO & MATERIAL -->
+    <section id="buero-material" class="module">
+      <h2>Büro &amp; Material</h2>
+      <p class="intro-text">
+        Dieser Bereich bündelt organisatorische Tätigkeiten im Büro, die Materialversorgung sowie den Versand von Unterlagen.
+      </p>
+
+      <div class="subnav">
+        <button class="subnav-item active" data-target="bm-akten">Akten sortieren &amp; archivieren</button>
+        <button class="subnav-item" data-target="bm-material">Büromaterialversorgung</button>
+        <button class="subnav-item" data-target="bm-briefe">Briefe &amp; Befunde versenden</button>
+      </div>
+
+       <div id="bm-akten" class="subpanel active">
+        <h3>Akten sortieren &amp; archivieren</h3>
+        <p>
+          Das Einsammeln und Sortieren der Akten erfolgt vor allem nach der Sprechstunde.
+          Durch den digitalen Ablauf (PG-Befund direkt im System) ist nur noch wenig
+          Aktenablage im Archiv nötig.
+        </p>
+
+        <h4>Schritt 1: Akten einsammeln und sortieren</h4>
+        <ol>
+          <li>Sammeln Sie alle verwendeten Patientenakten ein.</li>
+          <li>Sortieren Sie die Akten (z. B. nach Datum oder Name).</li>
+        </ol>
+
+        <h4>Schritt 2: Unterlagen von Ebene +2 abholen</h4>
+        <p>
+          Holen Sie die benötigten Unterlagen von Ebene +2 herunter. Da der PG-Befund
+          direkt im System hinterlegt wird, entfällt das frühere Kopieren der Akten.
+        </p>
+
+        <h4>Schritt 3: Restliche Akten ablegen</h4>
+        <p>
+          Nur wenige Akten müssen noch ins Archiv. Legen Sie diese sortiert an der
+          vorgesehenen Stelle ab; der Großteil wird nicht mehr archiviert.
+        </p>
+      </div>
+
+      <div id="bm-material" class="subpanel">
+        <h3>Büromaterialversorgung</h3>
+        <p>
+          Kontrollieren Sie regelmäßig, ob folgende Materialien im Büro ausreichend vorhanden sind.
+          Falls etwas fehlt, holen Sie Nachschub im Raum Versorgung AWT.
+        </p>
+
+        <ul class="checklist">
+          <li><label><input type="checkbox" /> Druckerpapier / HVS-Papier</label></li>
+          <li><label><input type="checkbox" /> Schreibmaterial (Kugelschreiber, Textmarker, Bleistifte)</label></li>
+          <li><label><input type="checkbox" /> Klarsichthüllen</label></li>
+          <li><label><input type="checkbox" /> Briefumschläge (verschiedene Größen)</label></li>
+          <li><label><input type="checkbox" /> ggf. Etiketten, Heftklammern, Tackerklammern</label></li>
+        </ul>
+      </div>
+
+      <div id="bm-briefe" class="subpanel">
+        <h3>Briefe &amp; Befunde versenden</h3>
+
+        <h4>1. Arztbriefe abholen</h4>
+        <p>Holen Sie die von Ihrer Kollegin fertig geschriebenen und ausgedruckten Arztbriefe ab.</p>
+
+        <h4>2. Passenden Umschlag auswählen</h4>
+        <p>Wählen Sie je nach Seitenanzahl den passenden Umschlag:</p>
+        <ul class="envelope-list">
+          <li>1–2 Seiten: kleiner Umschlag</li>
+          <li>3–4 Seiten: mittlerer Umschlag</li>
+          <li>≥ 5 Seiten: großer Umschlag</li>
+        </ul>
+
+        <p>
+          Falten Sie die Briefe entsprechend und legen Sie sie in den ausgewählten Umschlag.
+          Achten Sie darauf, dass Adressfeld und Absender korrekt sichtbar sind.
+        </p>
+
+        <h4>3. Versand vorbereiten und zur Post bringen</h4>
+        <p>Sammeln Sie alle fertigen Umschläge und bringen Sie die Briefe anschließend zur Poststelle im Gebäude.</p>
+        <img class="content-image" src="bild/post.png" alt="Poststelle" />
+      </div>
+    </section>
+
+    <!-- CHECKLISTEN & FAQ -->
+    <section id="checklisten-faq" class="module">
+      <h2>Checklisten &amp; FAQ</h2>
+      <p class="intro-text">
+        Dieser Bereich ergänzt den Leitfaden um interaktive Checklisten und typische Problemsituationen im Arbeitsalltag.
+      </p>
+
+      <div class="subnav">
+        <button class="subnav-item active" data-target="cf-tagescheckliste">Tagescheckliste</button>
+        <button class="subnav-item" data-target="cf-faq">Häufige Probleme</button>
+      </div>
+
+      <div id="cf-tagescheckliste" class="subpanel active">
+        <h3>Tagescheckliste</h3>
+        <p>Diese Checkliste orientiert sich an den täglichen Aufgaben vor, während und nach der Sprechstunde.</p>
+
+        <div class="checklist-grid">
+          <div class="check-card">
+            <h4>Vor und während der Sprechstunde</h4>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-save="vs-01" /> Protokolle für heute holen</label></li>
+              <li><label><input type="checkbox" data-save="vs-02" /> Patientenakte für heute vorbereiten</label></li>
+              <li><label><input type="checkbox" data-save="vs-03" /> Patientenakten und Terminliste mit in Kabine 25 nehmen</label></li>
+              <li><label><input type="checkbox" data-save="vs-04" /> Kabine 25 vorbereiten: Licht, Fenster, Papier im Drucker prüfen</label></li>
+              <li><label><input type="checkbox" data-save="vs-05" /> Messergebnisse vom Drucker abholen und Reihenfolge festlegen</label></li>
+              <li><label><input type="checkbox" data-save="vs-06" /> Akten für heutige neue Patienten vorbereiten</label></li>
+              <li><label><input type="checkbox" data-save="vs-07" /> Patienten in richtiger Reihenfolge aufrufen</label></li>
+              <li><label><input type="checkbox" data-save="vs-08" /> Ab 10:30 Uhr neue Patienten aufrufen und Unterlagen aushändigen</label></li>
+            </ul>
+          </div>
+
+          <div class="check-card">
+            <h4>Im Büro / nach der Sprechstunde</h4>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-save="bu-01" /> Briefe falten und bei Unklarheiten Rücksprache halten</label></li>
+              <li><label><input type="checkbox" data-save="bu-02" /> Briefe zur Post bringen</label></li>
+              <li><label><input type="checkbox" data-save="bu-03" /> Briefe vom Postfach abholen</label></li>
+              <li><label><input type="checkbox" data-save="bu-04" /> Terminbestätigungen im System eintragen</label></li>
+              <li><label><input type="checkbox" data-save="bu-05" /> Schrank im Büro aufräumen und Dokumente einsortieren</label></li>
+              <li><label><input type="checkbox" data-save="bu-06" /> Briefe und Sachen zur Ebene +2 bringen</label></li>
+              <li><label><input type="checkbox" data-save="bu-07" /> Akten beim Schlaflaborarzt und beim Schlafpsychologen holen</label></li>
+              <li><label><input type="checkbox" data-save="bu-08" /> Akten sortieren und ins Archiv / zur Leitstelle bringen</label></li>
+              <li><label><input type="checkbox" data-save="bu-09" /> Büromaterial prüfen und ggf. nachfüllen</label></li>
+            </ul>
+          </div>
+        </div>
+
+        <button type="button" onclick="resetSavedChecklist()">Checkliste zurücksetzen</button>
+      </div>
+
+      <div id="cf-faq" class="subpanel">
+        <h3>Häufige Probleme</h3>
+        <table class="faq-table">
+          <thead>
+            <tr>
+              <th>Problem</th>
+              <th>Mögliche Lösung</th>
+              <th>Wann Rücksprache?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Patient:in ist im System nicht auffindbar</td>
+              <td>Schreibweise, Geburtsdatum und vorhandene Patientennummer prüfen.</td>
+              <td>Wenn trotz Prüfung kein eindeutiger Datensatz gefunden wird.</td>
+            </tr>
+            <tr>
+              <td>Termin überschneidet sich</td>
+              <td>Kalender erneut prüfen und alternative freie Termine suchen.</td>
+              <td>Wenn keine passende Kapazität vorhanden ist.</td>
+            </tr>
+            <tr>
+              <td>Unterlagen sind unvollständig</td>
+              <td>Fehlende Dokumente notieren und zuständige Person informieren.</td>
+              <td>Bei medizinisch relevanten oder dringenden Unterlagen.</td>
+            </tr>
+            <tr>
+              <td>Arztbrief oder Befund fehlt</td>
+              <td>Ablage, Postkorb und zuständigen Arbeitsplatz prüfen.</td>
+              <td>Wenn der Befund für einen aktuellen Termin benötigt wird.</td>
+            </tr>
+            <tr>
+              <td>Unsicherheit bei Patientendaten</td>
+              <td>Daten nicht eigenständig verändern, sondern Rücksprache halten.</td>
+              <td>Immer, wenn Patientendaten nicht eindeutig sind.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      </div>
+    </section>
+
+<!-- NOTFALL & KONTAKT -->
+<section id="notfall-kontakt" class="module">
+  <h2>Notfall &amp; Kontakt</h2>
+  <p class="intro-text">
+    Dieser Bereich dient als schnelle Orientierungshilfe bei organisatorischen Rückfragen.
+    Bei Unsicherheiten sollte zunächst Rücksprache mit erfahrenen Kolleg:innen oder dem Sekretariat gehalten werden.
+  </p>
+
+  <h3>Wichtiger Kontakt</h3>
+  <table class="faq-table">
+    <thead>
+      <tr>
+        <th>Bereich</th>
+        <th>Kontakt / Durchwahl</th>
+        <th>Wann kontaktieren?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Sekretariat / Anmeldung</td>
+        <td>06421 / 58 65405</td>
+        <td>Terminfragen, organisatorische Rückfragen oder Unklarheiten im Arbeitsablauf</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="hint-box">
+    <strong>Wichtiger Hinweis:</strong>
+    Bei Unsicherheiten gilt: lieber einmal mehr beim Sekretariat oder bei erfahrenen Kolleg:innen nachfragen,
+    bevor Daten falsch eingetragen oder Termine fehlerhaft vergeben werden.
+  </div>
+</section>
+
+     
+    </section>
+  </div>
+
+<script>
+  const mainButtons = document.querySelectorAll(".main-nav-btn");
+  const modules = document.querySelectorAll(".module");
+  const searchInput = document.getElementById("search");
+
+  function showModule(moduleId) {
+    modules.forEach(m => {
+      m.classList.remove("active");
+      m.classList.remove("search-hidden");
+    });
+
+    mainButtons.forEach(b => b.classList.remove("active"));
+
+    const targetModule = document.getElementById(moduleId);
+    const targetButton = document.querySelector(`.main-nav-btn[data-module="${moduleId}"]`);
+
+    if (targetModule) targetModule.classList.add("active");
+    if (targetButton) targetButton.classList.add("active");
+  }
+
+  mainButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      searchInput.value = "";
+      showModule(button.dataset.module);
+    });
+  });
+
+  function initSubnavs() {
+    document.querySelectorAll(".module").forEach(module => {
+      const buttons = module.querySelectorAll(":scope > .subnav .subnav-item");
+      const panels = module.querySelectorAll(":scope > .subpanel");
+
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          buttons.forEach(b => b.classList.remove("active"));
+          panels.forEach(p => p.classList.remove("active"));
+
+          button.classList.add("active");
+
+          const target = module.querySelector(`#${button.dataset.target}`);
+          if (target) target.classList.add("active");
+        });
+      });
+    });
+  }
+
+  function initNestedTabs() {
+    document.querySelectorAll(".subpanel").forEach(panel => {
+      const tabs = panel.querySelectorAll(":scope .nested-tabs .nested-tab");
+      const nestedPanels = panel.querySelectorAll(":scope .nested-panel");
+
+      if (!tabs.length) return;
+
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+          tabs.forEach(t => t.classList.remove("active"));
+          nestedPanels.forEach(np => np.classList.remove("active"));
+
+          tab.classList.add("active");
+
+          const target = panel.querySelector(`#${tab.dataset.target}`);
+          if (target) target.classList.add("active");
+        });
+      });
+    });
+  }
+
+  function normalizeText(text) {
+    return text
+      .toLowerCase()
+      .replaceAll("ä", "ae")
+      .replaceAll("ö", "oe")
+      .replaceAll("ü", "ue")
+      .replaceAll("ß", "ss");
+  }
+
+  searchInput.addEventListener("input", function () {
+    const query = normalizeText(this.value.trim());
+
+    if (!query) {
+      modules.forEach(m => {
+        m.classList.remove("search-hidden", "active");
+      });
+
+      document.querySelectorAll(".subpanel, .nested-panel").forEach(p => {
+        p.classList.remove("active");
+      });
+
+      document.querySelectorAll(".subnav-item, .nested-tab").forEach(b => {
+        b.classList.remove("active");
+      });
+
+      showModule("ambulanzbetrieb");
+
+      document.querySelector('[data-target="amb-vorbereitung"]').classList.add("active");
+      document.getElementById("amb-vorbereitung").classList.add("active");
+
+      document.querySelector('[data-target="amb-kontrolle"]').classList.add("active");
+      document.getElementById("amb-kontrolle").classList.add("active");
+
+      return;
+    }
+
+    let firstMatch = null;
+
+    modules.forEach(module => {
+      const moduleText = normalizeText(module.textContent);
+      const isMatch = moduleText.includes(query);
+
+      module.classList.toggle("search-hidden", !isMatch);
+      module.classList.toggle("active", isMatch);
+
+      if (isMatch && !firstMatch) firstMatch = module;
+
+      module.querySelectorAll(".subpanel").forEach(panel => {
+        const panelMatch = normalizeText(panel.textContent).includes(query);
+        panel.classList.toggle("active", panelMatch);
+      });
+
+      module.querySelectorAll(".nested-panel").forEach(panel => {
+        const panelMatch = normalizeText(panel.textContent).includes(query);
+        panel.classList.toggle("active", panelMatch);
+      });
+
+      module.querySelectorAll(".subnav-item, .nested-tab").forEach(button => {
+        button.classList.remove("active");
+
+        const targetPanel = document.getElementById(button.dataset.target);
+        const buttonMatch = normalizeText(button.textContent).includes(query);
+
+        if (buttonMatch || targetPanel?.classList.contains("active")) {
+          button.classList.add("active");
+        }
+      });
+    });
+
+    mainButtons.forEach(b => b.classList.remove("active"));
+
+    if (firstMatch) {
+      const relBtn = document.querySelector(`.main-nav-btn[data-module="${firstMatch.id}"]`);
+      if (relBtn) relBtn.classList.add("active");
+    }
+  });
+
+  function initCheckboxPersistence() {
+    document.querySelectorAll('input[type="checkbox"][data-save]').forEach(box => {
+      const key = 'leitfaden-check-' + box.dataset.save;
+      box.checked = localStorage.getItem(key) === 'true';
+
+      box.addEventListener('change', () => {
+        localStorage.setItem(key, box.checked);
+      });
+    });
+  }
+
+  function resetSavedChecklist() {
+    document.querySelectorAll('input[type="checkbox"][data-save]').forEach(box => {
+      const key = 'leitfaden-check-' + box.dataset.save;
+      box.checked = false;
+      localStorage.removeItem(key);
+    });
+  }
+
+  initSubnavs();
+  initNestedTabs();
+  initCheckboxPersistence();
+</script>
+</body>
+</html>
